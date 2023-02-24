@@ -21,14 +21,10 @@ st.markdown(
 
 
 st.title(':red[Meet Meat]')
-#st.sidebar.title('Menu')
-#left, right = st.columns(2)
-#left.markdown("รับวาดรูป")
-#left.markdown("กรุณาเลือก")
-#right.markdown('![image](https://picsum.photos/id/555/200/300/)')
 
 st.markdown('เว็บไซต์ที่บอกข้อมูลราคาเนื้อไก่และเนื้อหมู')
 st.markdown('เราได้รวบรวมราคาเนื้อไก่และหมูมาให้คุณดูประกอบการตัดสินใจก่อนที่จะไปตลาด')
+
 def load_meat_data():
     return pd.read_csv('meat.csv')
 
@@ -64,13 +60,15 @@ st.markdown(
         """,
     unsafe_allow_html=True
 )
+
+
 Adp = load_meat_data()
-generateb = st.button('generate meat.csv')
-if generateb:
+generate = st.button('generate meat.csv')
+if generate:
     col1.write('generating "meat.meat" ...')
     col1.write(' ... done')
 
-loadb = col1.button('load meat.csv')
+load = col1.button('load meat.csv')
 matplotlib.rc('font', family='TH Sarabun New')
 st.dataframe(Adp)
 scatter_data()
@@ -82,7 +80,7 @@ with st.container():
 
 col2.write('ราคาเนื้อ')
 
-if loadb:
+if load:
     col1.write('loading "meat.csv ..."')
     col1.write('... done')
     col1.dataframe(Adp)
@@ -91,8 +89,8 @@ if loadb:
    # st.pyplot(fig)
 
 meat_fucntion = col1.selectbox("เลือกประเภทเนื้อ", ('หมูสามชั้น', 'หมูเนื้อแดง', 'หมูสันนอก', 'หมูสันใน', 'หมูบด', 'อกไก่', 'ปีกเต็มไก่', 'น่องไก่','ขาไก่' ))
-trainb = col1.button('train')
-if trainb:
+train = col1.button('train')
+if train:
     col1.write('training model ...')
     Adp = Adp.loc[Adp['type of meat'] == meat_fucntion]
     X = Adp['weight'].values.reshape(-1, 1)
